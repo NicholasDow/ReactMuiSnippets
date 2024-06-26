@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, OutlinedInput, InputAdornment, IconButton, Typography } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
@@ -101,28 +101,14 @@ const NumberDatePicker: React.FC<NumberDatePickerProps> = ({
         }
       />
       <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <DatePicker
-          label="Selected Date"
+        <StaticDatePicker
+          displayStaticWrapperAs="desktop"
           value={date}
           onChange={() => {}} // This prevents direct changes
+          renderInput={() => null}
           readOnly={true}
-          renderInput={(params) => <OutlinedInput {...params} />}
-          renderDay={(day, _value, DayComponentProps) => {
-            const isSelected = date && day.getTime() === date.getTime();
-            return (
-              <DayComponentProps
-                {...DayComponentProps}
-                sx={{
-                  ...DayComponentProps.sx,
-                  backgroundColor: isSelected ? 'primary.main' : 'inherit',
-                  color: isSelected ? 'primary.contrastText' : 'inherit',
-                  '&:hover': {
-                    backgroundColor: isSelected ? 'primary.dark' : 'inherit',
-                    cursor: 'default',
-                  },
-                }}
-              />
-            );
+          componentsProps={{
+            actionBar: { actions: [] } // This removes action buttons
           }}
         />
       </LocalizationProvider>
