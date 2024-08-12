@@ -4,21 +4,14 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { parse, isValid, format } from 'date-fns';
-import { Dayjs } from 'dayjs';
 
 function DatePickerWithTextBox() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [textValue, setTextValue] = useState<string>('');
 
-  const handleDateChange = (date: Dayjs | null) => {
-    if (date) {
-      const dateObject = date.toDate();
-      setSelectedDate(dateObject);
-      setTextValue(format(dateObject, 'MM/dd/yyyy'));
-    } else {
-      setSelectedDate(null);
-      setTextValue('');
-    }
+  const handleDateChange = (newValue: Date | null) => {
+    setSelectedDate(newValue);
+    setTextValue(newValue ? format(newValue, 'MM/dd/yyyy') : '');
   };
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
